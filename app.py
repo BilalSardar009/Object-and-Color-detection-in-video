@@ -3,9 +3,10 @@ import gradio as gr
 thres = 0.45 # Threshold to detect object
 
 
+
 def Detection(filename):
   cap = cv2.VideoCapture(filename)
-
+  framecount=0  
 
   cap.set(3,1280)
   cap.set(4,720)
@@ -14,7 +15,7 @@ def Detection(filename):
   error="in function 'cv::imshow'"
   classNames= []
   FinalItems=[]
-  classFile = '/home/user/app/coco.names'
+  classFile = 'coco.names'
   with open(classFile,'rt') as f:
     #classNames = f.read().rstrip('n').split('n')
     classNames = f.readlines()
@@ -23,8 +24,8 @@ def Detection(filename):
   # remove new line characters
   classNames = [x.strip() for x in classNames]
   print(classNames)
-  configPath = '/home/user/app/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
-  weightsPath = '/home/user/app/frozen_inference_graph.pb'
+  configPath = 'ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
+  weightsPath = 'frozen_inference_graph.pb'
 
 
   net = cv2.dnn_DetectionModel(weightsPath,configPath)
@@ -55,6 +56,10 @@ def Detection(filename):
       
       #cv2.imshow("Output",img)
       cv2.waitKey(10)
+      if framecount>cap.get(cv2.CAP_PROP_FRAME_COUNT):
+          break
+      else:
+          framecount+=1
     except  Exception as err:
       print(err)
       t=str(err)
@@ -63,7 +68,6 @@ def Detection(filename):
 
   print(FinalItems)
   return str(FinalItems)
-
 
 interface = gr.Interface(fn=Detection, 
                         inputs=["video"],
