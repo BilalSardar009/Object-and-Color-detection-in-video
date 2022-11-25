@@ -1,6 +1,6 @@
 ---
 title: Object Detection In Video
-emoji: ⚡
+emoji:  😏 
 colorFrom: green
 colorTo: purple
 sdk: gradio
