@@ -14,7 +14,7 @@ def Detection(filename):
   error="in function 'cv::imshow'"
   classNames= []
   FinalItems=[]
-  classFile = 'coco.names'
+  classFile = '/home/user/app/coco.names'
   with open(classFile,'rt') as f:
     #classNames = f.read().rstrip('n').split('n')
     classNames = f.readlines()
@@ -23,8 +23,8 @@ def Detection(filename):
   # remove new line characters
   classNames = [x.strip() for x in classNames]
   print(classNames)
-  configPath = 'ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
-  weightsPath = 'frozen_inference_graph.pb'
+  configPath = '/home/user/app/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
+  weightsPath = '/home/user/app/frozen_inference_graph.pb'
 
 
   net = cv2.dnn_DetectionModel(weightsPath,configPath)
