@@ -69,4 +69,4 @@ interface = gr.Interface(fn=Detection,
                         inputs=["video"],
                          outputs="text", 
                         title='Object Detection in Video')
-interface.launch(inline=False)
+interface.launch(inline=False,debug=True)
