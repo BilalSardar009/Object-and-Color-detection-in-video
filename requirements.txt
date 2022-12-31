@@ -1,4 +1,4 @@
 opencv-python
 fast_colorthief
 webcolors
-PIL
+Pillow
