@@ -3,6 +3,7 @@ import gradio as gr
 import fast_colorthief
 import webcolors
 from PIL import Image
+import numpy as np
 thres = 0.45 # Threshold to detect object
 
 
