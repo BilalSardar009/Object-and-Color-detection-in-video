@@ -1,5 +1,8 @@
 import cv2
 import gradio as gr
+import fast_colorthief
+import webcolors
+from PIL import Image
 thres = 0.45 # Threshold to detect object
 
 
@@ -36,6 +39,30 @@ def Detection(filename):
 
   while True:
     success,img = cap.read()
+
+
+    
+    # #Colour
+    try:
+      image = Image.fromarray(img)
+      image = image.convert('RGBA')
+      image = np.array(image).astype(np.uint8)
+      palette=fast_colorthief.get_palette(image)
+    
+
+      for i in range(len(palette)):
+        diff={}
+        for color_hex, color_name in webcolors.CSS3_HEX_TO_NAMES.items():
+          r, g, b = webcolors.hex_to_rgb(color_hex)
+          diff[sum([(r - palette[i][0])**2,
+                    (g - palette[i][1])**2,
+                    (b - palette[i][2])**2])]= color_name
+        if FinalItems.count(diff[min(diff.keys())])==0:
+          FinalItems.append(diff[min(diff.keys())])
+
+    except:
+      pass
+        
     try:
         classIds, confs, bbox = net.detect(img,confThreshold=thres)
     except:
@@ -72,5 +99,5 @@ def Detection(filename):
 interface = gr.Interface(fn=Detection, 
                         inputs=["video"],
                          outputs="text", 
-                        title='Object Detection in Video')
+                        title='Object & Color Detection in Video')
 interface.launch(inline=False,debug=True)
