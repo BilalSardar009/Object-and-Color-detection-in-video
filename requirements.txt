@@ -2,3 +2,4 @@ opencv-python
 fast_colorthief
 webcolors
 Pillow
+numpy
