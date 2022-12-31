@@ -1,5 +1,5 @@
 ---
-title: Object Detection In Video
+title: Object & Color Detection In Video
 emoji:  😏 
 colorFrom: green
 colorTo: purple
